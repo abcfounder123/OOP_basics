@@ -984,5 +984,651 @@ print(D.a)
 
 #################################################
 
+Object attributes နှစ်မျိုး
+
+ပိုင်ဆိုင်မှုတွေ သတ်မှတ်ပေးတဲ့အခါ Oxygen ဘူးလိုမျိုးက တစ်ယောက်ချင်းစီကို အပိုင်ပေးလိုက်လို့ ရပါတယ်။
+
+ဆေးရုံထဲက ပန်းခြံလိုမျိုးကြတော့ လူနာတစ်ယောက်ကို ပန်းခြံတစ်ခုဆိုတာမျိုး ပေးလို့ရပေမယ့် ဖြစ်နိုင်ရင် အတူတူမျှသုံးလိုက်ရင် အကုန်အကျပိုသက်သာပါတယ်။
+
+ဒါကြောင့် object တွေကို Attributes တွေ ပေးတဲ့အခါ Oxygen ဘူးလိုမျိုး ကိုယ်ပိုင်ပစ္စည်းတွေ ရှိသလို ပန်းခြံလိုမျိုး ဘုံပိုင်ဆိုင်မှုတွေလည်း ရှိလာပါတယ်။
+
+နှစ်မျိုးလုံးက object တွေနဲ့ သက်ဆိုင်တာဖြစ်လို့ object attributes လို့ပဲ ခေါ်ကြပါတယ်။
+
+###########
+
+သီခြားပိုင်ဆိုင်မှုတွေကို Individual Property တစ်နည်းအားဖြင့် Instance Attribute (instance variable) လို့ ခေါ်ပါတယ်။
+
+ဘုံပိုင်ဆိုင်မှုတွေကိုတော့ Shared Property တစ်နည်းအားဖြင့် Class Attribute (static variable) လို့ ခေါ်ပါတယ်။
+
+###########
+
+Question .1 
+
+Class attributes ဆိုတာက class ရဲ့ ပိုင်ဆိုင်မှုလား။
+ဒါမှမဟုတ် object တွေရဲ့ ဘုံပိုင်ဆိုင်မှုလား။
+
+Answer : Class level မှာ ရေးထားလို့သာ class attributes လို့ ခေါ်ပေမယ့် အဓိကရည်ရွယ်ချက်က memory သက်သာအောင် မျှသုံးနိုင်ဖို့ ဖြစ်ပါတယ်။
+
+###########
+
+Question.2
+
+Car တစ်စီးမှာ brand အမျိုးအစားနဲ့  VIN number ဆိုတဲ့ ပိုင်ဆိုင်မှုနှစ်ခု ရှိတယ်ဆိုပါစို့။
+ဘယ်ပိုင်ဆိုင်မှုကို မျှပြီး သုံးလို့ ရနိုင်မလဲ။
+
+Answer : ဥပမာ Toyota ကုမ္ပဏီက ထုတ်တဲ့ကားတွေဆိုရင် ကားအစီးရေ ၁၀၀၀ ရှိပါစေ၊ အားလုံးရဲ့ Brand က "Toyota" ပဲ ဖြစ်မှာပါ။ အစီးတိုင်းအတွက် memory ထဲမှာ "Toyota" လို့ လိုက်ရေးနေမယ့်အစား Class Level မှာ တစ်ခါပဲ ရေးထားပြီး အားလုံးက မျှသုံးတာ ပိုထိရောက်ပါတယ်။
+
+VIN ဆိုတာကြတော့ ကားတစ်စီးချင်းစီရဲ့ ကိုယ်ပိုင် မှတ်ပုံတင်နံပါတ် (စက်နံပါတ်) လိုမျိုးပါ။ ကားတစ်စီးနဲ့ တစ်စီး မတူနိုင်တာကြောင့်  Instance Attribute အဖြစ်ပဲ ထားရပါမယ်။
+
+#################################################
+
+26. What should be Class level data?
+
+50 millions people
+
+1. Name       -  obj    =>   500 millions   =>  500 MB
+2. ID         -  obj    =>   500 millions   =>  500 MB
+3. age        -  obj    =>   500 millions   =>  500 MB 
+4. "Myanmar"  -  obj    =>   500 millions   =>  500 MB 
+                                            +   2000 MB
+                                             
+
+1. Name       -  obj    =>   500 millions   =>  500 MB
+2. ID         -  obj    =>   500 millions   =>  500 MB
+3. age        -  obj    =>   500 millions   =>  500 MB 
+4. "Myanmar"  -  cls           1            =>  100 bytes 
+
+                                            +   1500 MB + 100 bytes 
+
+#################################################
+
+
+class X:
+    def __init__(self, name, id, age, country):
+        self.name = name
+        self.id = id
+        self.age = age 
+        self.country = country
+
+
+p1 = X(name="p1", id="000000001", age=20, country="Myanmar")
+p2 = X(name="p2", id="000000002", age=20, country="Myanmar")
+
+print(p1.__dict__)
+print(p2.__dict__)
+
+print(p1.country)
+print(p2.country)
+
+p1.country = "Burma"
+p2.country = "Burma"
+
+print(p1.country)
+print(p2.country)
+
+#################################################
+
+{'name': 'p1', 'id': '000000001', 'age': 20, 'country': 'Myanmar'}        400 bytes
+{'name': 'p2', 'id': '000000002', 'age': 20, 'country': 'Myanmar'}        400 bytes
+
+
+p1 = X(name="p1", id="000000001", age=20, country="Myanmar")              create for every obj
+p2 = X(name="p2", id="000000002", age=20, country="Myanmar")              create for every obj
+
+"Myanmar"  -  obj    =>   500 millions   =>  500 MB                       much memory usage
+
+p1.country = "Burma"                                                      update for every obj
+p2.country = "Burma"                                                      update for every obj
+
+#################################################
+
+
+class X:
+    country = "Myanmar"  # class level data
+
+    def __init__(self, name, id, age):
+        self.name = name
+        self.id = id
+        self.age = age 
+
+
+p1 = X(name="p1", id="000000001", age=20)
+p2 = X(name="p2", id="000000002", age=20)
+
+print(p1.__dict__)
+print(p2.__dict__)
+
+print(p1.country)
+print(p2.country)
+
+X.country = "Burma"
+
+print(p1.country)
+print(p2.country)
+
+#################################################
+
+{'name': 'p1', 'id': '000000001', 'age': 20}         300 bytes
+{'name': 'p2', 'id': '000000002', 'age': 20}         300 bytes
+
+country = "Myanmar"  =>  100 bytes                   create once, less memory usage
+
+X.country = "Burma"                                  update once
+
+#################################################
+
+27. Use inheritance for the following code.
+
+
+class Male:
+    gender = "male"
+    country = "Myanmar"
+    percedence = "U Ba"
+    system = "Democracy"
+
+    def __init__(self, id, name, age):
+        self.id = id
+        self.name = name
+        self.age = age
+
+
+class Female:
+    gender = "female"
+    country = "Myanmar"
+    percedence = "U Ba"
+    system = "Democracy"
+
+    def __init__(self, id, name, age):
+        self.id = id
+        self.name = name
+        self.age = age
+
+
+#################################################
+
+
+class X:
+    country = "Myanmar"
+    percedence = "U Ba"
+    system = "Democracy"
+
+    def __init__(self, id, name, age):
+        self.id = id
+        self.name = name
+        self.age = age
+
+
+class Male(X):
+    gender = "male"
+
+
+class Female(X):
+    gender = "female"
+
+
+#################################################
+
+p1 = Male(id="123456789", name="Mg Mg", age=20)
+print(p1.gender)
+print(p1.country)
+
+#################################################
+
+28. Create relations for the following classes.
+
+Myanmar Human
+Yangon Human
+Mandalay Human
+America Human
+Newyork Human
+Human
+
+                              Human (head=1)
+                                
+                            /                  \\
+
+            Myanmar Human                        America Human
+
+           /        \\                                \\
+           
+   Yangon Human   Mandalay Human                      Newyork Human
+
+
+800 billions , 600 bytes, 100 bytes
+
+#################################################
+
+29. Create relations for the following classes.
+
+Car
+Engine Car
+Electric Car
+Diesel Car
+Petrol Car
+                       
+                       Car
+                       
+                    /       \\
+                   
+           Engine Car         Electric Car
+           
+           /    \\
+
+   Diesel Car     Petrol Car
+
+#################################################
+
+30. Draw MRO for the following relations.
+
+A is a F.    (ပန်းသီး is a Fruit.)
+T is a F.    (သစ်တော်သီး is a Fruit.)
+O is a F.    (Orange is a Fruit.)
+
+AT is a A.   (ပန်းသစ်တော်သီးသည် ပန်းသီးဖြစ်သည်။)
+AT is a T.   (ပန်းသစ်တော်သီးသည် သစ်တော်သီးဖြစ်သည်။)
+(ပန်းသစ်တော်သီးသည် ပန်းသီးလည်း ဖြစ်သလို သစ်တော်သီးလည်းဖြစ်သည်။)
+
+O1 is a O.
+O2 is a O.
+O3 is a O.
+                             F
+                             
+                         /   |   \\
+                                
+                        A    T       O
+                        
+                        \   /     /  |  \\
+                        
+                          AT    O1  O2   O3
+                          
+#################################################
+
+Knowledges
+
+1. comma + space
+2. operator => s + operator +  s
+3. fun, class  => line 2
+4. while, if, for  =>  line 1
+5. normal program  =>  no line, line 1
+
+6. Diamond problam (YAB => YABY)
+7. MRO
+
+##################################################################################################
+
+Day.28 (Inheritance and Composition)
+
+Inheritance
+
+                             F
+                             
+                         /   |   \\
+                                
+                        A    T      O
+                        
+                        
+A is a child class of F.  (parent and child)
+A is a F.
+T is a F.
+O is a F.                 ('is a' relation)
+
+#################################################
+
+Diesel_Engine_Car
+Petrol_Engine_Car
+Car
+
+#################################################
+
+Diesel_Engine_Car is a Car. 
+Petrol_Engine_Car is a Car. 
+
+#################################################      
+
+                        Car
+                        
+                    /       \\
+                    
+     Diesel_Engine_Car       Petrol_Engine_Car 
+     
+#################################################
+
+Attributes
+
+brand = "BMW"
+serial_no = 0001
+
+on()
+off()
+
+#################################################
+
+1. Normal code
+
+
+class Diesel_Engine_Car:
+    def __init__(self, brand, serial_no):
+        self.brand = brand
+        self. serial_no = serial_no
+
+    def on(self):
+        print("Diesel Engine On.(more electric)")
+    
+    def off(self):
+        print("Off.")
+
+
+class Petrol_Engine_Car:
+    def __init__(self, brand, serial_no):
+        self.brand = brand
+        self.serial_no = serial_no
+
+    def on(self):
+        print("Petrol Engine On.(less electric)")
+
+    def off(self):
+        print("Off.")
+
+#################################################
+
+2. Normal code to resuable code
+
+
+class Car:
+    def __init__(self, brand, serial_no):
+        self.brand = brand
+        self. serial_no = serial_no
+
+    def off(self):
+        print("Off.")
+
+
+class Diesel_Engine_Car(Car):
+    def on(self):
+        print("Diesel Engine On.(more electric)")
+
+
+class Petrol_Engine_Car(Car):
+    def on(self):
+        print("Petrol Engine On.(less electric)")
+
+
+car1 = Diesel_Engine_Car(brand="BMW", serial_no="BMW-0001")
+car2 = Petrol_Engine_Car(brand="Toyota", serial_no="Toyota-0001")
+
+car1.off()
+
+#################################################
+
+{'brand': 'BMW', 'serial_no': 'BMW-0001'}
+{'brand': 'Toyota', 'serial_no': 'Toyota-0001'}
+
+Diesel Engine On.(more electric)
+Petrol Engine On.(less electric)
+
+##################################################################################################
+
+Composition
+
+Car has an Engine.
+Car has a brand.
+Car has a serial_no.
+
+             Engine
+         /
+  Car    ---   brand
+         \
+            serial_no
+            
+#################################################
+
+Normal code to flexible code
+
+
+class Car:
+    def __init__(self, engine, brand, serial_no):
+        self.engine = engine
+        self.brand = brand
+        self.serial_no = serial_no
+        
+        
+#################################################
+
+class DieselEngine:
+    def on(self):
+        print("Diesel Engine On.(more electric)")
+
+    def off(self):
+        print("Off.")
+
+
+class PetrolEngine:
+    def on(self):
+        print("Petrol Engine On.(less electric)")
+
+    def off(self):
+        print("Off.")
+
+
+class Car:
+    def __init__(self, engine, brand, serial_no):
+        self.engine = engine
+        self.brand = brand
+        self.serial_no = serial_no
+        
+
+car1 = Car(engine=DieselEngine(), brand="BMW", serial_no="BMW-0001")
+print(car1.__dict__)
+car1.engine = PetrolEngine()   # flexible engine
+print(car1.__dict__)
+
+#################################################
+
+{'engine': Diesel_Engine object, 'brand': 'BMW', 'serial_no': 'BMW-0001'}
+{'engine': Petrol_Engine object, 'brand': 'BMW', 'serial_no': 'BMW-0001'}
+
+#################################################
+
+Inheritance and Composition
+
+1. Inheritance 
+
+"Code reuse for large scale project"
+
+AI car model.1 =>  parmanent
+AI car model.2 =>  parmanent
+AI car model.3 =>  parmanent
+AI car model.4 =>  parmanent
+
+AI car model.1 is a Car.
+AI car model.2 is a Car.
+model.3 is a "model.1 + model.2".
+model.4 is a model.3.
+
+           Car
+        
+        /      \\
+      
+model.1          model.2 
+
+      \\       /
+     
+        model.3
+       
+          |
+         
+        model.4  
+
+#################################################
+
+Composition 
+
+"Creating flexible code"
+
+Car has various engines, various brake and various AI model
+
+             Engine
+         /
+    Car   ---  brake
+         \\
+             AI model
+            
+##################################################################################################
+
+Exercise of Composition and Inheritance
+
+- Write code for the following pictures.
+
+
+         Engine
+         /
+    Car   ---  brake
+         \\
+             AI model
+
+
+                      Engine                             Brake
+                        
+                    /        \\                        /       \
+                    
+      DieselEngine             PetrolEngine       Normal          ABS
+      
+      
+         AI model
+        
+        /      \\
+      
+model.1          model.2 
+
+      \\       /
+     
+        model.3
+       
+          |
+         
+        model.4  
+                        
+##################################################################################################
+
+Sample code of Composition and Inheritance
+
+
+class Engine:
+    def off(self):
+        print("Off.")
+
+
+class DieselEngine(Engine):
+    def on(self):
+        print("Diesel Engine On.(more electric)")
+
+
+class PetrolEngine(Engine):
+    def on(self):
+        print("Petrol Engine On.(less electric)")
+
+
+class Car:
+    def __init__(self, engine, brand, serial_no, ai_model=None):
+        self.engine = engine
+        self.brand = brand
+        self.serial_no = serial_no
+        self.ai_model = ai_model
+
+
+car1 = Car(engine=DieselEngine(), brand="BMW", serial_no="BMW-0001")
+print(car1.__dict__)
+car1.engine = PetrolEngine()
+print(car1.__dict__)
+
+##################################################################################################
+
+Exercise of Composition and Inheritance
+
+- Write code for the following pictures.
+
+
+         Engine
+         /
+    Car   ---  brake
+         \\
+             AI model
+
+
+                      Engine                             Brake
+                        
+                    /        \\                        /       \
+                    
+      DieselEngine             PetrolEngine       Normal          ABS
+      
+      
+         AI model
+        
+        /      \\
+      
+model.1          model.2 
+
+      \\       /
+     
+        model.3
+       
+          |
+         
+        model.4  
+
+
+class Car:
+    def __init__(self, engine, brake, ai_model):
+        self.engine = engine
+        self.brake = brake
+        self.ai_model = ai_model
+    
+    
+class Engine:
+    pass
+
+
+class DieselEngine(Engine):
+    pass
+
+
+class PetrolEngine(Engine):
+    pass
+    
+    
+class Brake:
+    pass
+
+
+class Normal(Brake):
+    pass
+
+
+class Abs(Brake):
+    pass
+
+
+class AiModel:
+    pass
+
+
+class Model1(AiModel):
+    pass
+
+
+class Model2(AiModel):
+    pass
+
+
+class Model3(Model1, Model2):
+    pass
+
+
+class Model4(Model3):
+    pass
+
+
+##################################################################################################
+
 """
 
